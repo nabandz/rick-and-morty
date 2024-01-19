@@ -1,5 +1,35 @@
 import styled from "styled-components";
 
+export const Card = ({ image, gender, name, species, status }) => {
+  const getStatusColor = (status = "") => {
+    const formatStatus = status.toLowerCase();
+    return {
+      alive: "var(--color-green)",
+      dead: "var(--color-red)",
+      unknown: "var(--color-grey)",
+    }[formatStatus];
+  };
+
+  return (
+    <CardEl>
+      <CardImage src={image} />
+      <CardInfoWrapper>
+        <div>
+          <CardTitle>{name}</CardTitle>
+          <CardDescription>
+            <CardStatus $status={getStatusColor(status)} />
+            {status} – {species}
+          </CardDescription>
+        </div>
+        <div>
+          <CardInfo>Gender:</CardInfo>
+          <CardText>{gender}</CardText>
+        </div>
+      </CardInfoWrapper>
+    </CardEl>
+  );
+};
+
 const CardEl = styled.article`
   display: flex;
   border-radius: 0.5rem;
@@ -39,7 +69,7 @@ const CardStatus = styled.div`
   width: 9px;
   height: 9px;
   border-radius: 100%;
-  background-color: var(--color-green);
+  background-color: ${({ $status }) => $status};
 `;
 
 const CardDescription = styled.div`
@@ -49,6 +79,7 @@ const CardDescription = styled.div`
   color: var(--color-white);
   font-size: var(--fs-base);
   font-weight: var(--fw-regular);
+  text-transform: capitalize;
 `;
 
 const CardInfo = styled.p`
@@ -64,24 +95,3 @@ const CardText = styled.p`
   font-size: var(--fs-base);
   font-weight: var(--fw-regular);
 `;
-
-export const Card = () => {
-  return (
-    <CardEl>
-      <CardImage />
-      <CardInfoWrapper>
-        <div>
-          <CardTitle>Title</CardTitle>
-          <CardDescription>
-            <CardStatus />
-            Description
-          </CardDescription>
-        </div>
-        <div>
-          <CardInfo>Type</CardInfo>
-          <CardText>Text</CardText>
-        </div>
-      </CardInfoWrapper>
-    </CardEl>
-  );
-};

@@ -1,13 +1,68 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import arrowIcon from "../resources/icons/arrow.svg";
 import closeIcon from "../resources/icons/close.svg";
 
+export const Filter = ({ param, filterOptions, setFilters, filters }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(param);
+
+  const toggling = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const onOptionClicked = (param, value) => {
+    setSelectedOption(value);
+    setIsOpen(false);
+    const newFilters = filters.filter((f) => f[0] !== param);
+    setFilters([...newFilters, [param, value]]);
+  };
+
+  const clearFilter = (e) => {
+    e.stopPropagation();
+    setSelectedOption(param);
+    setIsOpen(false);
+    const newFilters = filters.filter((f) => f[0] !== param);
+    setFilters([...newFilters]);
+  };
+
+  useEffect(() => {
+    setFilters(filters);
+    // eslint-disable-next-line
+  }, [filters]);
+
+  return (
+    <FilterEl>
+      <FilterHeader onClick={toggling}>
+        {selectedOption}
+        <FilterClear
+          onClick={(e) => clearFilter(e)}
+          style={{ display: selectedOption === param ? "none" : "block" }}
+        ></FilterClear>
+      </FilterHeader>
+      {isOpen && (
+        <FilterListContainer>
+          <FilterList>
+            {filterOptions.map((option) => (
+              <ListItem
+                onClick={() => onOptionClicked(param, option.value)}
+                key={option.value}
+                value={option.value}
+              >
+                {option.name}
+              </ListItem>
+            ))}
+          </FilterList>
+        </FilterListContainer>
+      )}
+    </FilterEl>
+  );
+};
+
 const FilterEl = styled.div`
   position: relative;
-  width: 150px;
+  width: 155px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -25,6 +80,7 @@ const FilterHeader = styled.div`
   color: var(--color-white);
   font-size: var(--fs-base);
   font-weight: var(--fw-regular);
+  text-transform: capitalize;
   cursor: pointer;
 
   background-image: url(${arrowIcon});
@@ -65,6 +121,7 @@ const FilterListContainer = styled.div`
   position: absolute;
   width: 100%;
   top: 3rem;
+  z-index: 1;
 `;
 
 const FilterList = styled.ul`
@@ -97,51 +154,3 @@ const ListItem = styled.li`
     background-color: var(--color-hover);
   }
 `;
-
-const options = ["One", "Two", "Three"];
-
-export const Filter = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Title");
-
-  const toggling = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const onOptionClicked = (value) => {
-    setSelectedOption(value);
-    setIsOpen(false);
-  };
-
-  const clearFilter = (e) => {
-    e.stopPropagation();
-    setSelectedOption("Title");
-    setIsOpen(false);
-  };
-
-  return (
-    <FilterEl>
-      <FilterHeader onClick={toggling}>
-        {selectedOption}
-        <FilterClear
-          onClick={(e) => clearFilter(e)}
-          style={{ display: selectedOption === "Title" ? "none" : "block" }}
-        ></FilterClear>
-      </FilterHeader>
-      {isOpen && (
-        <FilterListContainer>
-          <FilterList>
-            {options.map((option) => (
-              <ListItem
-                onClick={() => onOptionClicked(option)}
-                key={Math.random()}
-              >
-                {option}
-              </ListItem>
-            ))}
-          </FilterList>
-        </FilterListContainer>
-      )}
-    </FilterEl>
-  );
-};

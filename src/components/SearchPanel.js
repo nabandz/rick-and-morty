@@ -2,6 +2,12 @@ import styled from "styled-components";
 
 import closeIcon from "../resources/icons/close.svg";
 
+export const SearchPanel = ({ search, setSearch }) => {
+  return (
+    <Input onChange={(e) => setSearch(e.target.value.trim())} value={search} />
+  );
+};
+
 const Input = styled.input.attrs({
   type: "search",
   placeholder: "Search by name...",
@@ -32,7 +38,3 @@ const Input = styled.input.attrs({
     background-size: contain;
   }
 `;
-
-export const SearchPanel = ({ search, setSearch }) => {
-  return <Input onChange={(e) => setSearch(e.target.value)} value={search} />;
-};

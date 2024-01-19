@@ -1,9 +1,25 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-
-import { useState } from "react";
 
 import { SearchPanel } from "./SearchPanel";
 import { FilterPanel } from "./FilterPanel";
+
+export const Controls = ({ handleSearch }) => {
+  const [filters, setFilters] = useState([]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    handleSearch(search, filters);
+    // eslint-disable-next-line
+  }, [search, filters]);
+
+  return (
+    <ControlsEl>
+      <SearchPanel search={search} setSearch={setSearch} />
+      <FilterPanel filters={filters} setFilters={setFilters} />
+    </ControlsEl>
+  );
+};
 
 const ControlsEl = styled.div`
   width: 100%;
@@ -12,14 +28,3 @@ const ControlsEl = styled.div`
   flex-wrap: wrap;
   gap: 1rem;
 `;
-
-export const Controls = () => {
-  const [search, setSearch] = useState("");
-
-  return (
-    <ControlsEl>
-      <SearchPanel search={search} setSearch={setSearch} />
-      <FilterPanel />
-    </ControlsEl>
-  );
-};

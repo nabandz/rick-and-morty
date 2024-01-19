@@ -2,9 +2,17 @@ import styled from "styled-components";
 
 import loadIcon from "../resources/icons/loader.svg";
 
-import { Card } from "./Card";
+export const List = ({ loadNextPage, children }) => {
+  return (
+    <ListEl>
+      <Container>{children}</Container>
+      <LoadButton onClick={loadNextPage}>Load more</LoadButton>
+    </ListEl>
+  );
+};
 
 const ListEl = styled.section`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,22 +56,3 @@ const LoadButton = styled.button`
     box-shadow: var(--box-shadow);
   }
 `;
-
-export const List = () => {
-  return (
-    <ListEl>
-      <Container>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </Container>
-      <LoadButton>Load more</LoadButton>
-    </ListEl>
-  );
-};
