@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const useRickAndMortyServices = () => {
   const [data, setData] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [nextPage, setNextPage] = useState("");
+  const [initial, setInitial] = useState(true);
 
   const BASE_API = "https://rickandmortyapi.com/api/character";
 
@@ -45,10 +46,6 @@ const useRickAndMortyServices = () => {
     return urlStr.join("&");
   }
 
-  useEffect(() => {
-    fetchData(`${BASE_API}?page=1`);
-  }, []);
-
   const loadNextPage = () => {
     if (nextPage) {
       setLoading(true);
@@ -57,6 +54,7 @@ const useRickAndMortyServices = () => {
   };
 
   const defaultData = () => {
+    setInitial(false);
     setData([]);
     setLoading(true);
     fetchData(`${BASE_API}?page=1`);
@@ -73,6 +71,7 @@ const useRickAndMortyServices = () => {
   };
 
   return {
+    initial,
     data,
     isLoading,
     error,

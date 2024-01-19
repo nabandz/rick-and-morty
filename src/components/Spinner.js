@@ -16,7 +16,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -36,7 +36,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -56,7 +56,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -76,7 +76,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -96,7 +96,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -116,7 +116,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -136,7 +136,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -156,7 +156,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -176,7 +176,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -196,7 +196,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -216,7 +216,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -236,7 +236,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -256,7 +256,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -276,7 +276,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -296,7 +296,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -316,7 +316,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"
@@ -336,7 +336,7 @@ export const Spinner = () => {
           ry="0"
           width="1"
           height="11"
-          fill="#1d0e0b"
+          fill="#ffffff"
         >
           <animate
             attributeName="opacity"

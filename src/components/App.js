@@ -9,14 +9,24 @@ import { List } from "./List";
 import { Card } from "./Card";
 import { Spinner } from "./Spinner";
 import { ErrorMessage } from "./ErrorMessage";
+import { Modal } from "./Modal";
 
 import bgImg from "../resources/img/bg-image.png";
 
 function App() {
-  const { data, isLoading, error, loadNextPage, filterData } =
-    useRickAndMortyServices();
+  const {
+    initial,
+    data,
+    isLoading,
+    error,
+    loadNextPage,
+    filterData,
+    defaultData,
+  } = useRickAndMortyServices();
 
   const [filterList, setFilterList] = useState([]);
+  const [modalActive, setModalActive] = useState(false);
+  const [modalData, setModalData] = useState([]);
 
   const handleSearch = async (search, filter) => {
     let newFilters = [];
@@ -25,11 +35,21 @@ function App() {
       newFilters.push(["name", search]);
       setFilterList(newFilters);
     }
-    if (filter) {
+
+    if (filter.length > 0) {
       newFilters.push(...filter);
       setFilterList(newFilters);
     }
+
+    if (newFilters.length === 0 && !initial) {
+      defaultData();
+    }
   };
+
+  useEffect(() => {
+    defaultData();
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     if (filterList.length !== 0) {
@@ -38,17 +58,23 @@ function App() {
     // eslint-disable-next-line
   }, [filterList]);
 
+  const openModal = (value) => {
+    setModalActive(true);
+    setModalData(value);
+    console.log(value);
+  };
+
   const errorMessage = error ? <ErrorMessage /> : null;
-  const spinner = isLoading ? <Spinner /> : null;
+  const spinner = isLoading && data.length === 0 ? <Spinner /> : null;
 
   return (
     <>
       <Header />
       <Main>
         <Controls handleSearch={handleSearch} />
+        {errorMessage}
+        {spinner}
         <List loadNextPage={loadNextPage}>
-          {errorMessage}
-          {spinner}
           {data.map((char) => {
             let charInfo = {
               image: char.image,
@@ -56,10 +82,20 @@ function App() {
               name: char.name,
               species: char.species,
               status: char.status,
+              type: char.type,
+              lastLocation: char.location.name,
+              firstSeen: char.origin.name,
             };
-            return <Card key={char.id} {...charInfo} />;
+            return <Card key={char.id} data={charInfo} openModal={openModal} />;
           })}
         </List>
+        {modalActive && (
+          <Modal
+            modalActive={modalActive}
+            setModalActive={setModalActive}
+            modalData={modalData}
+          />
+        )}
       </Main>
       <BackgroundImage />
     </>

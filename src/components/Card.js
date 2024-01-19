@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const Card = ({ image, gender, name, species, status }) => {
+export const Card = ({ data, openModal }) => {
+  let { image, gender, name, species, status } = data;
+
   const getStatusColor = (status = "") => {
     const formatStatus = status.toLowerCase();
     return {
@@ -11,7 +13,7 @@ export const Card = ({ image, gender, name, species, status }) => {
   };
 
   return (
-    <CardEl>
+    <CardEl onClick={() => openModal(data)}>
       <CardImage src={image} />
       <CardInfoWrapper>
         <div>
