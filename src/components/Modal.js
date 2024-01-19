@@ -22,7 +22,7 @@ export const Modal = ({ modalActive, setModalActive, modalData }) => {
 
   return (
     <ModalEl onClick={() => setModalActive(false)}>
-      <ModalContent>
+      <ModalContent onClick={(e) => e.stopPropagation()}>
         <ModalImage src={image} />
         <ModalInfoWrapper>
           <div>

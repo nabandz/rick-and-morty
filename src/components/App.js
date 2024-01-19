@@ -22,13 +22,14 @@ function App() {
     loadNextPage,
     filterData,
     defaultData,
+    clearError,
   } = useRickAndMortyServices();
 
   const [filterList, setFilterList] = useState([]);
   const [modalActive, setModalActive] = useState(false);
   const [modalData, setModalData] = useState([]);
 
-  const handleSearch = async (search, filter) => {
+  const handleSearch = async (search, filter, filterSearch) => {
     let newFilters = [];
 
     if (search) {
@@ -41,7 +42,13 @@ function App() {
       setFilterList(newFilters);
     }
 
+    if (filterSearch.length > 0) {
+      newFilters.push(...filterSearch);
+      setFilterList(newFilters);
+    }
+
     if (newFilters.length === 0 && !initial) {
+      clearError();
       defaultData();
     }
   };
@@ -53,6 +60,7 @@ function App() {
 
   useEffect(() => {
     if (filterList.length !== 0) {
+      clearError();
       filterData(filterList);
     }
     // eslint-disable-next-line

@@ -13,7 +13,7 @@ const Input = styled.input.attrs({
   placeholder: "Search by name...",
 })`
   display: flex;
-  min-width: 33%;
+  min-width: 376px;
   padding: 0.5rem 0.75rem;
   align-items: center;
   flex-shrink: 0;

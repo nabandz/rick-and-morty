@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const useRickAndMortyServices = () => {
   const [data, setData] = useState([]);
@@ -70,6 +70,8 @@ const useRickAndMortyServices = () => {
     fetchData(newURL);
   };
 
+  const clearError = useCallback(() => setError(null), []);
+
   return {
     initial,
     data,
@@ -78,6 +80,7 @@ const useRickAndMortyServices = () => {
     filterData,
     loadNextPage,
     defaultData,
+    clearError,
   };
 };
 
