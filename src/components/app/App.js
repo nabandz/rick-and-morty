@@ -1,23 +1,24 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import useRickAndMortyServices from "../services/RickAndMortyServices";
-import { Header } from "./Header";
-import { Main } from "./Main";
-import { Controls } from "./Controls";
-import { List } from "./List";
-import { Card } from "./Card";
-import { Spinner } from "./Spinner";
-import { ErrorMessage } from "./ErrorMessage";
-import { Modal } from "./Modal";
+import useRickAndMortyServices from "../../services/RickAndMortyServices";
+import { Header } from "../header/Header";
+import { Main } from "../main/Main";
+import { Controls } from "../controls/Controls";
+import { List } from "../list/List";
+import { Card } from "../card/Card";
+import { Spinner } from "../spinner/Spinner";
+import { ErrorMessage } from "../errorMessage/ErrorMessage";
+import { Modal } from "../modal/Modal";
 
-import bgImg from "../resources/img/bg-image.png";
+import bgImg from "../../resources/img/bg-image.png";
 
 function App() {
   const {
     initial,
     data,
     isLoading,
+    nextPage,
     error,
     loadNextPage,
     filterData,
@@ -53,6 +54,11 @@ function App() {
     }
   };
 
+  const openModal = (value) => {
+    setModalActive(true);
+    setModalData(value);
+  };
+
   useEffect(() => {
     defaultData();
     // eslint-disable-next-line
@@ -66,23 +72,17 @@ function App() {
     // eslint-disable-next-line
   }, [filterList]);
 
-  const openModal = (value) => {
-    setModalActive(true);
-    setModalData(value);
-    console.log(value);
-  };
-
   const errorMessage = error ? <ErrorMessage /> : null;
   const spinner = isLoading && data.length === 0 ? <Spinner /> : null;
 
   return (
-    <>
+    <Wrapper>
       <Header />
       <Main>
         <Controls handleSearch={handleSearch} />
         {errorMessage}
         {spinner}
-        <List loadNextPage={loadNextPage}>
+        <List nextPage={nextPage} loadNextPage={loadNextPage}>
           {data.map((char) => {
             let charInfo = {
               image: char.image,
@@ -98,15 +98,11 @@ function App() {
           })}
         </List>
         {modalActive && (
-          <Modal
-            modalActive={modalActive}
-            setModalActive={setModalActive}
-            modalData={modalData}
-          />
+          <Modal setModalActive={setModalActive} modalData={modalData} />
         )}
       </Main>
       <BackgroundImage />
-    </>
+    </Wrapper>
   );
 }
 
@@ -117,6 +113,15 @@ const BackgroundImage = styled.img.attrs({
 })`
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: 16vw;
   z-index: -1;
+
+  @media (max-width: 576px) {
+    right: 0;
+  }
+`;
+
+const Wrapper = styled.div`
+  min-height: 100vh;
+  position: relative;
 `;

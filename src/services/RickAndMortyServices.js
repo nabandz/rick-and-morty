@@ -38,20 +38,7 @@ const useRickAndMortyServices = () => {
     }
   };
 
-  function getFilterURL(arr) {
-    const urlStr = [];
-    arr.forEach((filter) => {
-      urlStr.push(`${filter[0]}=${filter[1]}`);
-    });
-    return urlStr.join("&");
-  }
-
-  const loadNextPage = () => {
-    if (nextPage) {
-      setLoading(true);
-      fetchData(nextPage);
-    }
-  };
+  const clearError = useCallback(() => setError(null), []);
 
   const defaultData = () => {
     setInitial(false);
@@ -70,11 +57,25 @@ const useRickAndMortyServices = () => {
     fetchData(newURL);
   };
 
-  const clearError = useCallback(() => setError(null), []);
+  const loadNextPage = () => {
+    if (nextPage) {
+      setLoading(true);
+      fetchData(nextPage);
+    }
+  };
+
+  function getFilterURL(arr) {
+    const urlStr = [];
+    arr.forEach((filter) => {
+      urlStr.push(`${filter[0]}=${filter[1]}`);
+    });
+    return urlStr.join("&");
+  }
 
   return {
     initial,
     data,
+    nextPage,
     isLoading,
     error,
     filterData,

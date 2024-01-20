@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-import { statusOptions, genderOptions } from "../utils/filterOptions";
-import { Filter } from "./Filter";
-import { SearchFilter } from "./SearchFilter";
+import { statusOptions, genderOptions } from "../../utils/filterOptions";
+import { FilterSelect } from "../filterSelect/FilterSelect";
+import { FilterSearch } from "../filterSearch/FilterSearch";
 
 export const FilterPanel = ({
-  filters,
-  setFilters,
+  filtersSelect,
+  setFiltersSelect,
   filtersSearch,
   setFiltersSearch,
 }) => {
@@ -23,18 +23,18 @@ export const FilterPanel = ({
     <FilterPanelEl>
       {Object.entries(selectFilter).map(([type, optionsData]) => {
         return (
-          <Filter
+          <FilterSelect
             key={type}
             param={type}
             filterOptions={optionsData}
-            setFilters={setFilters}
-            filters={filters}
+            setFiltersSelect={setFiltersSelect}
+            filtersSelect={filtersSelect}
           />
         );
       })}
-      {Object.entries(searchFilter).map(([type, optionsData]) => {
+      {Object.entries(searchFilter).map(([type]) => {
         return (
-          <SearchFilter
+          <FilterSearch
             key={type}
             param={type}
             filtersSearch={filtersSearch}
@@ -48,5 +48,6 @@ export const FilterPanel = ({
 
 const FilterPanelEl = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
 `;

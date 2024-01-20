@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import closeIcon from "../resources/icons/close.svg";
+import closeIcon from "../../resources/icons/close.svg";
 
 export const SearchPanel = ({ search, setSearch }) => {
   return (
@@ -13,7 +13,7 @@ const Input = styled.input.attrs({
   placeholder: "Search by name...",
 })`
   display: flex;
-  min-width: 376px;
+  width: 376px;
   padding: 0.5rem 0.75rem;
   align-items: center;
   flex-shrink: 0;
@@ -36,5 +36,9 @@ const Input = styled.input.attrs({
     background-image: url(${closeIcon});
     background-repeat: no-repeat;
     background-size: contain;
+  }
+
+  @media (max-width: 576px) {
+    width: 100%;
   }
 `;

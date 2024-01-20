@@ -2,18 +2,15 @@ import { useState, useEffect } from "react";
 
 import styled from "styled-components";
 
-import closeIcon from "../resources/icons/close.svg";
+import closeIcon from "../../resources/icons/close.svg";
 
-export const SearchFilter = ({ param, filtersSearch, setFiltersSearch }) => {
+export const FilterSearch = ({ param, filtersSearch, setFiltersSearch }) => {
   const [inputSearch, setInputSearch] = useState("");
 
   const onOptionSeacrh = (param, value) => {
     setInputSearch(value);
-    const newFilters = filtersSearch.filter((f) => f[0] !== param);
+    const newFilters = filtersSearch.filter((filter) => filter[0] !== param);
     setFiltersSearch([...newFilters, [param, value]]);
-    console.log(newFilters);
-    console.log(value);
-    console.log(param);
   };
 
   useEffect(() => {
@@ -58,5 +55,9 @@ const Input = styled.input.attrs({
     background-image: url(${closeIcon});
     background-repeat: no-repeat;
     background-size: contain;
+  }
+
+  @media (max-width: 576px) {
+    width: 100%;
   }
 `;

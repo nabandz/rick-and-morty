@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const Modal = ({ modalActive, setModalActive, modalData }) => {
+import { Container } from "../container/Container";
+
+import closeIcon from "../../resources/icons/close.svg";
+
+export const Modal = ({ setModalActive, modalData }) => {
   const {
     image,
     name,
@@ -22,58 +26,82 @@ export const Modal = ({ modalActive, setModalActive, modalData }) => {
 
   return (
     <ModalEl onClick={() => setModalActive(false)}>
-      <ModalContent onClick={(e) => e.stopPropagation()}>
-        <ModalImage src={image} />
-        <ModalInfoWrapper>
-          <div>
-            <ModalTitle>{name}</ModalTitle>
-            <ModalDescription>
-              <ModalStatus $status={getStatusColor(status)} />
-              {status} – {species}
-            </ModalDescription>
-          </div>
-          <div>
-            <ModalInfo>Species:</ModalInfo>
-            <ModalText>{species}</ModalText>
-          </div>
-          <div>
-            <ModalInfo>Type:</ModalInfo>
-            <ModalText>{type ? type : "Unknown"}</ModalText>
-          </div>
-          <div>
-            <ModalInfo>Gender:</ModalInfo>
-            <ModalText>{gender}</ModalText>
-          </div>
-          <div>
-            <ModalInfo>Last known location:</ModalInfo>
-            <ModalText>{lastLocation}</ModalText>
-          </div>
-          <div>
-            <ModalInfo>First seen in:</ModalInfo>
-            <ModalText>{firstSeen}</ModalText>
-          </div>
-        </ModalInfoWrapper>
-      </ModalContent>
+      <Container>
+        <ModalClose onClick={() => setModalActive(false)} />
+        <ModalContent onClick={(e) => e.stopPropagation()}>
+          <ModalImage src={image} />
+          <ModalInfoWrapper>
+            <div>
+              <ModalTitle>{name}</ModalTitle>
+              <ModalDescription>
+                <ModalStatus $status={getStatusColor(status)} />
+                {status} – {species}
+              </ModalDescription>
+            </div>
+            <div>
+              <ModalInfo>Species:</ModalInfo>
+              <ModalText>{species}</ModalText>
+            </div>
+            <div>
+              <ModalInfo>Type:</ModalInfo>
+              <ModalText>{type ? type : "Unknown"}</ModalText>
+            </div>
+            <div>
+              <ModalInfo>Gender:</ModalInfo>
+              <ModalText>{gender}</ModalText>
+            </div>
+            <div>
+              <ModalInfo>Last known location:</ModalInfo>
+              <ModalText>{lastLocation}</ModalText>
+            </div>
+            <div>
+              <ModalInfo>First seen in:</ModalInfo>
+              <ModalText>{firstSeen}</ModalText>
+            </div>
+          </ModalInfoWrapper>
+        </ModalContent>
+      </Container>
     </ModalEl>
   );
 };
 
 const ModalEl = styled.div`
-  padding: 1rem;
+  padding: 1rem 0;
   display: flex;
-  justify-content: center;
   align-items: center;
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   background: rgba(39, 43, 51, 0.8);
   backdrop-filter: blur(5px);
+  overflow: auto;
+
+  @media (max-width: 576px) {
+    align-items: start;
+  }
+`;
+
+const ModalClose = styled.button`
+  width: 40px;
+  height: 40px;
+  background-image: url(${closeIcon});
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+  border: none;
+  transition: var(--transition);
+  cursor: pointer;
+  &:hover {
+    transform: translateY(-4px);
+  }
 `;
 
 const ModalContent = styled.div`
+  max-width: 100%;
   width: 630px;
+  height: fit-content;
   display: flex;
   gap: 0.5rem;
   border-radius: 0.5rem;

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-import loadIcon from "../resources/icons/loader.svg";
+import loadIcon from "../../resources/icons/loader.svg";
 
-export const List = ({ loadNextPage, children }) => {
+export const List = ({ nextPage, loadNextPage, children }) => {
   return (
     <ListEl>
-      <Container>{children}</Container>
-      <LoadButton onClick={loadNextPage}>Load more</LoadButton>
+      <ListContainer>{children}</ListContainer>
+      {nextPage && <LoadButton onClick={loadNextPage}>Load more</LoadButton>}
     </ListEl>
   );
 };
@@ -19,7 +19,7 @@ const ListEl = styled.section`
   gap: 2rem;
 `;
 
-const Container = styled.div`
+const ListContainer = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(376px, 1fr));

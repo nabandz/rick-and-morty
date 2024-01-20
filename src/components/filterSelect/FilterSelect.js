@@ -1,40 +1,45 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import arrowIcon from "../resources/icons/arrow.svg";
-import closeIcon from "../resources/icons/close.svg";
+import arrowIcon from "../../resources/icons/arrow.svg";
+import closeIcon from "../../resources/icons/close.svg";
 
-export const Filter = ({ param, filterOptions, setFilters, filters }) => {
+export const FilterSelect = ({
+  param,
+  filterOptions,
+  setFiltersSelect,
+  filtersSelect,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(param);
 
-  const toggling = () => {
+  const toggleFilterList = () => {
     setIsOpen(!isOpen);
   };
 
   const onOptionClicked = (param, value) => {
     setSelectedOption(value);
     setIsOpen(false);
-    const newFilters = filters.filter((f) => f[0] !== param);
-    setFilters([...newFilters, [param, value]]);
+    const newFilters = filtersSelect.filter((filter) => filter[0] !== param);
+    setFiltersSelect([...newFilters, [param, value]]);
   };
 
   const clearFilter = (e) => {
     e.stopPropagation();
     setSelectedOption(param);
     setIsOpen(false);
-    const newFilters = filters.filter((f) => f[0] !== param);
-    setFilters([...newFilters]);
+    const newFilters = filtersSelect.filter((filter) => filter[0] !== param);
+    setFiltersSelect([...newFilters]);
   };
 
   useEffect(() => {
-    setFilters(filters);
+    setFiltersSelect(filtersSelect);
     // eslint-disable-next-line
-  }, [filters]);
+  }, [filtersSelect]);
 
   return (
     <FilterEl>
-      <FilterHeader onClick={toggling}>
+      <FilterHeader onClick={toggleFilterList}>
         {selectedOption}
         <FilterClear
           onClick={(e) => clearFilter(e)}
@@ -66,6 +71,10 @@ const FilterEl = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  @media (max-width: 576px) {
+    width: 100%;
+  }
 `;
 
 const FilterHeader = styled.div`

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import { Container } from "./Container";
+import { Container } from "../container/Container";
 
-import logoImg from "../resources/img/logo.svg";
+import logoImg from "../../resources/img/logo.svg";
 
 export const Header = () => {
   return (

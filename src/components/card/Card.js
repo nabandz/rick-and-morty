@@ -68,7 +68,7 @@ const CardTitle = styled.h2`
 `;
 
 const CardStatus = styled.div`
-  width: 9px;
+  min-width: 9px;
   height: 9px;
   border-radius: 100%;
   background-color: ${({ $status }) => $status};
@@ -76,7 +76,7 @@ const CardStatus = styled.div`
 
 const CardDescription = styled.div`
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 0.5rem;
   color: var(--color-white);
   font-size: var(--fs-base);
