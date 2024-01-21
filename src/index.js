@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createGlobalStyle } from "styled-components";
 
-import App from "./components/app/App";
+import App from "./components/App/App";
 
 const Global = createGlobalStyle`
   :root {
@@ -61,23 +61,23 @@ const Global = createGlobalStyle`
   @font-face {
   font-family: "Segoe UI";
   font-weight: 400;
-  src: local("Segoe-UI"),
-    url(../../resources/fonts/Segoe-UI.woff2) format("opentype");
-}
+  src: local("SegoeUI"),
+    src("./resources/fonts/Segoe-UI.woff2") format("woff2");
+  }
 
-@font-face {
-  font-family: "Segoe UI";
-  font-weight: 700;
-  src: local("Segoe-UI"),
-    url(../../resources/fonts/Segoe-UI-Bold.woff2) format("opentype");
-}
+  @font-face {
+    font-family: "Segoe UI";
+    font-weight: 700;
+    src: local("SegoeUI"),
+      src("./resources/fonts/Segoe-UI-Bold.woff2") format("woff2");
+  }
 `;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <>
-    <App />
     <Global />
+    <App />
   </>
 );

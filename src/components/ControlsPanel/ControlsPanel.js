@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { SearchPanel } from "../searchPanel/SearchPanel";
-import { FilterPanel } from "../filterPanel/FilterPanel";
+import { SearchPanel } from "../SearchPanel/SearchPanel";
+import { FilterPanel } from "../FilterPanel/FilterPanel";
 
-export const Controls = ({ handleSearch }) => {
+export const ControlsPanel = ({ handleSearch }) => {
   const [search, setSearch] = useState("");
   const [filtersSelect, setFiltersSelect] = useState([]);
   const [filtersSearch, setFiltersSearch] = useState([]);
@@ -15,7 +15,7 @@ export const Controls = ({ handleSearch }) => {
   }, [search, filtersSelect, filtersSearch]);
 
   return (
-    <ControlsEl>
+    <ControlsStyle>
       <SearchPanel search={search} setSearch={setSearch} />
       <FilterPanel
         filtersSelect={filtersSelect}
@@ -23,11 +23,11 @@ export const Controls = ({ handleSearch }) => {
         filtersSearch={filtersSearch}
         setFiltersSearch={setFiltersSearch}
       />
-    </ControlsEl>
+    </ControlsStyle>
   );
 };
 
-const ControlsEl = styled.div`
+const ControlsStyle = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;

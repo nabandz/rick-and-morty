@@ -1,38 +1,15 @@
 import styled from "styled-components";
 
-export const Card = ({ data, openModal }) => {
-  let { image, gender, name, species, status } = data;
-
-  const getStatusColor = (status = "") => {
-    const formatStatus = status.toLowerCase();
-    return {
-      alive: "var(--color-green)",
-      dead: "var(--color-red)",
-      unknown: "var(--color-grey)",
-    }[formatStatus];
-  };
-
-  return (
-    <CardEl onClick={() => openModal(data)}>
-      <CardImage src={image} />
-      <CardInfoWrapper>
-        <div>
-          <CardTitle>{name}</CardTitle>
-          <CardDescription>
-            <CardStatus $status={getStatusColor(status)} />
-            {status} – {species}
-          </CardDescription>
-        </div>
-        <div>
-          <CardInfo>Gender:</CardInfo>
-          <CardText>{gender}</CardText>
-        </div>
-      </CardInfoWrapper>
-    </CardEl>
-  );
+export const getStatusColor = (status = "") => {
+  const formatStatus = status.toLowerCase();
+  return {
+    alive: "var(--color-green)",
+    dead: "var(--color-red)",
+    unknown: "var(--color-grey)",
+  }[formatStatus];
 };
 
-const CardEl = styled.article`
+export const CardStyle = styled.div`
   display: flex;
   border-radius: 0.5rem;
   background-color: var(--color-block);
@@ -45,12 +22,20 @@ const CardEl = styled.article`
   }
 `;
 
-const CardImage = styled.img`
+export const CardImage = styled.img`
   max-width: 152px;
   object-fit: cover;
 `;
 
-const CardInfoWrapper = styled.div`
+export const CardImageBig = styled(CardImage)`
+  max-width: 50%;
+
+  @media (max-width: 576px) {
+    max-width: 100%;
+  }
+`;
+
+export const CardInfoWrapper = styled.div`
   width: 100%;
   display: flex;
   padding: 1rem;
@@ -59,7 +44,7 @@ const CardInfoWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const CardTitle = styled.h2`
+export const CardTitle = styled.h2`
   margin: 0;
   color: var(--color-white);
   font-size: var(--fs-2xl);
@@ -67,14 +52,14 @@ const CardTitle = styled.h2`
   overflow-wrap: anywhere;
 `;
 
-const CardStatus = styled.div`
+export const CardStatus = styled.div`
   min-width: 9px;
   height: 9px;
   border-radius: 100%;
   background-color: ${({ $status }) => $status};
 `;
 
-const CardDescription = styled.div`
+export const CardDescription = styled.div`
   display: flex;
   align-items: baseline;
   gap: 0.5rem;
@@ -84,14 +69,14 @@ const CardDescription = styled.div`
   text-transform: capitalize;
 `;
 
-const CardInfo = styled.p`
+export const CardInfo = styled.p`
   margin: 0;
   color: var(--color-grey);
   font-size: var(--fs-base);
   font-weight: var(--fw-bold);
 `;
 
-const CardText = styled.p`
+export const CardText = styled.p`
   margin: 0;
   color: var(--color-white);
   font-size: var(--fs-base);

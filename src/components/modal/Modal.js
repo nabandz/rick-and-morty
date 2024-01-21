@@ -1,6 +1,16 @@
 import styled from "styled-components";
+import {
+  CardImageBig,
+  CardInfoWrapper,
+  CardTitle,
+  CardDescription,
+  CardStatus,
+  CardInfo,
+  CardText,
+  getStatusColor,
+} from "../UI/card/Card";
 
-import { Container } from "../container/Container";
+import { Container } from "../Container/Container";
 
 import closeIcon from "../../resources/icons/close.svg";
 
@@ -15,57 +25,49 @@ export const Modal = ({ setModalActive, modalData }) => {
     lastLocation,
     firstSeen,
   } = modalData;
-  const getStatusColor = (status = "") => {
-    const formatStatus = status.toLowerCase();
-    return {
-      alive: "var(--color-green)",
-      dead: "var(--color-red)",
-      unknown: "var(--color-grey)",
-    }[formatStatus];
-  };
 
   return (
-    <ModalEl onClick={() => setModalActive(false)}>
+    <ModalStyle onClick={() => setModalActive(false)}>
       <Container>
         <ModalClose onClick={() => setModalActive(false)} />
         <ModalContent onClick={(e) => e.stopPropagation()}>
-          <ModalImage src={image} />
-          <ModalInfoWrapper>
+          <CardImageBig src={image} />
+          <CardInfoWrapper>
             <div>
-              <ModalTitle>{name}</ModalTitle>
-              <ModalDescription>
-                <ModalStatus $status={getStatusColor(status)} />
+              <CardTitle>{name}</CardTitle>
+              <CardDescription>
+                <CardStatus $status={getStatusColor(status)} />
                 {status} – {species}
-              </ModalDescription>
+              </CardDescription>
             </div>
             <div>
-              <ModalInfo>Species:</ModalInfo>
-              <ModalText>{species}</ModalText>
+              <CardInfo>Species:</CardInfo>
+              <CardText>{species}</CardText>
             </div>
             <div>
-              <ModalInfo>Type:</ModalInfo>
-              <ModalText>{type ? type : "Unknown"}</ModalText>
+              <CardInfo>Type:</CardInfo>
+              <CardText>{type ? type : "Unknown"}</CardText>
             </div>
             <div>
-              <ModalInfo>Gender:</ModalInfo>
-              <ModalText>{gender}</ModalText>
+              <CardInfo>Gender:</CardInfo>
+              <CardText>{gender}</CardText>
             </div>
             <div>
-              <ModalInfo>Last known location:</ModalInfo>
-              <ModalText>{lastLocation}</ModalText>
+              <CardInfo>Last known location:</CardInfo>
+              <CardText>{lastLocation}</CardText>
             </div>
             <div>
-              <ModalInfo>First seen in:</ModalInfo>
-              <ModalText>{firstSeen}</ModalText>
+              <CardInfo>First seen in:</CardInfo>
+              <CardText>{firstSeen}</CardText>
             </div>
-          </ModalInfoWrapper>
+          </CardInfoWrapper>
         </ModalContent>
       </Container>
-    </ModalEl>
+    </ModalStyle>
   );
 };
 
-const ModalEl = styled.div`
+const ModalStyle = styled.div`
   padding: 1rem 0;
   display: flex;
   align-items: center;
@@ -112,62 +114,4 @@ const ModalContent = styled.div`
   @media (max-width: 576px) {
     flex-direction: column;
   }
-`;
-
-const ModalImage = styled.img`
-  max-width: 50%;
-  object-fit: cover;
-
-  @media (max-width: 576px) {
-    max-width: 100%;
-  }
-`;
-
-const ModalInfoWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  padding: 1rem;
-  gap: 1rem;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const ModalTitle = styled.h2`
-  margin: 0;
-  color: var(--color-white);
-  font-size: var(--fs-2xl);
-  font-weight: var(--fw-bold);
-  overflow-wrap: anywhere;
-`;
-
-const ModalStatus = styled.div`
-  width: 9px;
-  height: 9px;
-  border-radius: 100%;
-  background-color: ${({ $status }) => $status};
-`;
-
-const ModalDescription = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--color-white);
-  font-size: var(--fs-base);
-  font-weight: var(--fw-regular);
-  text-transform: capitalize;
-`;
-
-const ModalInfo = styled.p`
-  margin: 0;
-  color: var(--color-grey);
-  font-size: var(--fs-base);
-  font-weight: var(--fw-bold);
-`;
-
-const ModalText = styled.p`
-  margin: 0;
-  color: var(--color-white);
-  font-size: var(--fs-base);
-  font-weight: var(--fw-regular);
-  text-transform: capitalize;
 `;

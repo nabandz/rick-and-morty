@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import useRickAndMortyServices from "../../services/RickAndMortyServices";
-import { Header } from "../header/Header";
-import { Main } from "../main/Main";
-import { Controls } from "../controls/Controls";
-import { List } from "../list/List";
-import { Card } from "../card/Card";
-import { Spinner } from "../spinner/Spinner";
-import { ErrorMessage } from "../errorMessage/ErrorMessage";
-import { Modal } from "../modal/Modal";
+import { Header } from "../Header/Header";
+import { Main } from "../Main/Main";
+import { ControlsPanel } from "../ControlsPanel/ControlsPanel";
+import { CharacterList } from "../CharacterList/CharacterList";
+import { CharacterCard } from "../CharacterCard/CharacterCard";
+import { Spinner } from "../Spinner/Spinner";
+import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
+import { Modal } from "../Modal/Modal";
 
 import bgImg from "../../resources/img/bg-image.png";
 
@@ -79,10 +79,11 @@ function App() {
     <Wrapper>
       <Header />
       <Main>
-        <Controls handleSearch={handleSearch} />
+        <Title>Rick and Morty API</Title>
+        <ControlsPanel handleSearch={handleSearch} />
         {errorMessage}
         {spinner}
-        <List nextPage={nextPage} loadNextPage={loadNextPage}>
+        <CharacterList nextPage={nextPage} loadNextPage={loadNextPage}>
           {data.map((char) => {
             let charInfo = {
               image: char.image,
@@ -94,9 +95,15 @@ function App() {
               lastLocation: char.location.name,
               firstSeen: char.origin.name,
             };
-            return <Card key={char.id} data={charInfo} openModal={openModal} />;
+            return (
+              <CharacterCard
+                key={char.id}
+                data={charInfo}
+                openModal={openModal}
+              />
+            );
           })}
-        </List>
+        </CharacterList>
         {modalActive && (
           <Modal setModalActive={setModalActive} modalData={modalData} />
         )}
@@ -119,6 +126,13 @@ const BackgroundImage = styled.img.attrs({
   @media (max-width: 576px) {
     right: 0;
   }
+`;
+
+const Title = styled.h1`
+  margin: 0;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
 `;
 
 const Wrapper = styled.div`

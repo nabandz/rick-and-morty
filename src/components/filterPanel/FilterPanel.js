@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 import { statusOptions, genderOptions } from "../../utils/filterOptions";
-import { FilterSelect } from "../filterSelect/FilterSelect";
-import { FilterSearch } from "../filterSearch/FilterSearch";
+import { FilterSelect } from "../FilterSelect/FilterSelect";
+import { FilterSearch } from "../FilterSearch/FilterSearch";
 
 export const FilterPanel = ({
   filtersSelect,
@@ -20,7 +20,7 @@ export const FilterPanel = ({
   };
 
   return (
-    <FilterPanelEl>
+    <FilterPanelStyle>
       {Object.entries(selectFilter).map(([type, optionsData]) => {
         return (
           <FilterSelect
@@ -42,11 +42,11 @@ export const FilterPanel = ({
           />
         );
       })}
-    </FilterPanelEl>
+    </FilterPanelStyle>
   );
 };
 
-const FilterPanelEl = styled.div`
+const FilterPanelStyle = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;

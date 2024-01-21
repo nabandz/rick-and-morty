@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import arrowIcon from "../../resources/icons/arrow.svg";
@@ -12,6 +12,21 @@ export const FilterSelect = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(param);
+  const filterListRef = useRef(null);
+
+  function useClickOutsideFilterList(ref) {
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setIsOpen(false);
+        }
+      }
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
 
   const toggleFilterList = () => {
     setIsOpen(!isOpen);
@@ -37,13 +52,15 @@ export const FilterSelect = ({
     // eslint-disable-next-line
   }, [filtersSelect]);
 
+  useClickOutsideFilterList(filterListRef);
+
   return (
-    <FilterEl>
+    <FilterStyle ref={filterListRef}>
       <FilterHeader onClick={toggleFilterList}>
         {selectedOption}
         <FilterClear
           onClick={(e) => clearFilter(e)}
-          style={{ display: selectedOption === param ? "none" : "block" }}
+          $display={selectedOption === param ? "none" : "block"}
         ></FilterClear>
       </FilterHeader>
       {isOpen && (
@@ -61,11 +78,11 @@ export const FilterSelect = ({
           </FilterList>
         </FilterListContainer>
       )}
-    </FilterEl>
+    </FilterStyle>
   );
 };
 
-const FilterEl = styled.div`
+const FilterStyle = styled.div`
   position: relative;
   width: 155px;
   display: flex;
@@ -91,7 +108,6 @@ const FilterHeader = styled.div`
   font-weight: var(--fw-regular);
   text-transform: capitalize;
   cursor: pointer;
-
   background-image: url(${arrowIcon});
   background-position: right 0.5rem top 50%;
   background-repeat: no-repeat;
@@ -105,6 +121,7 @@ const FilterHeader = styled.div`
 `;
 
 const FilterClear = styled.button`
+  display: ${({ $display }) => $display};
   padding-right: 1.25rem;
   position: relative;
   height: 100%;

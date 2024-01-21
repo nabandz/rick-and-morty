@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const ErrorMessage = () => {
-  return <ErrorMessageEl>Not found!</ErrorMessageEl>;
+  return <ErrorMessageStyle>Not found!</ErrorMessageStyle>;
 };
 
-const ErrorMessageEl = styled.div`
+const ErrorMessageStyle = styled.div`
   font-size: var(--fs-2xl);
 `;

@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
-import { Container } from "../container/Container";
+import { Container } from "../Container/Container";
 
-const MainEl = styled.main`
+const MainStyle = styled.main`
   padding-bottom: 3.375rem;
 `;
 
 export const Main = ({ children }) => {
   return (
-    <MainEl>
+    <MainStyle>
       <Container>{children}</Container>
-    </MainEl>
+    </MainStyle>
   );
 };

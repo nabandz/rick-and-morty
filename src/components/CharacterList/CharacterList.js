@@ -2,16 +2,16 @@ import styled from "styled-components";
 
 import loadIcon from "../../resources/icons/loader.svg";
 
-export const List = ({ nextPage, loadNextPage, children }) => {
+export const CharacterList = ({ nextPage, loadNextPage, children }) => {
   return (
-    <ListEl>
+    <ListStyle>
       <ListContainer>{children}</ListContainer>
       {nextPage && <LoadButton onClick={loadNextPage}>Load more</LoadButton>}
-    </ListEl>
+    </ListStyle>
   );
 };
 
-const ListEl = styled.section`
+const ListStyle = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -43,7 +43,6 @@ const LoadButton = styled.button`
   font-size: var(--fs-base);
   font-weight: var(--fw-regular);
   border: none;
-
   background-image: url(${loadIcon});
   background-position: right 0.5rem top 50%;
   background-repeat: no-repeat;
