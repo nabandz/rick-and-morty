@@ -5,24 +5,17 @@ import { SearchPanel } from "../SearchPanel/SearchPanel";
 import { FilterPanel } from "../FilterPanel/FilterPanel";
 
 export const ControlsPanel = ({ handleSearch }) => {
-  const [search, setSearch] = useState("");
-  const [filtersSelect, setFiltersSelect] = useState([]);
-  const [filtersSearch, setFiltersSearch] = useState([]);
+  const [filters, setFilters] = useState([]);
 
   useEffect(() => {
-    handleSearch(search, filtersSelect, filtersSearch);
+    handleSearch(filters);
     // eslint-disable-next-line
-  }, [search, filtersSelect, filtersSearch]);
+  }, [filters]);
 
   return (
     <ControlsStyle>
-      <SearchPanel search={search} setSearch={setSearch} />
-      <FilterPanel
-        filtersSelect={filtersSelect}
-        setFiltersSelect={setFiltersSelect}
-        filtersSearch={filtersSearch}
-        setFiltersSearch={setFiltersSearch}
-      />
+      <SearchPanel param={"name"} filters={filters} setFilters={setFilters} />
+      <FilterPanel filters={filters} setFilters={setFilters} />
     </ControlsStyle>
   );
 };

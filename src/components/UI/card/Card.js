@@ -81,4 +81,5 @@ export const CardText = styled.p`
   color: var(--color-white);
   font-size: var(--fs-base);
   font-weight: var(--fw-regular);
+  text-transform: capitalize;
 `;

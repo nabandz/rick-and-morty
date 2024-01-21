@@ -61,15 +61,13 @@ const Global = createGlobalStyle`
   @font-face {
   font-family: "Segoe UI";
   font-weight: 400;
-  src: local("SegoeUI"),
-    src("./resources/fonts/Segoe-UI.woff2") format("woff2");
+  src: url("./resources/fonts/Segoe-UI.woff2") format(".woff2");
   }
 
   @font-face {
     font-family: "Segoe UI";
     font-weight: 700;
-    src: local("SegoeUI"),
-      src("./resources/fonts/Segoe-UI-Bold.woff2") format("woff2");
+    src: url("./resources/fonts/SegoeUI-Bold.woff2") format(".woff2");
   }
 `;
 

@@ -9,6 +9,14 @@ const useRickAndMortyServices = () => {
 
   const BASE_API = "https://rickandmortyapi.com/api/character";
 
+  function getFilterURL(arr) {
+    const urlString = [];
+    arr.forEach((filter) => {
+      urlString.push(`${filter[0]}=${filter[1]}`);
+    });
+    return urlString.join("&");
+  }
+
   const fetchData = async (
     url,
     method = "GET",
@@ -21,7 +29,7 @@ const useRickAndMortyServices = () => {
       const resultData = await response.json();
 
       if (response.ok) {
-        setData((prevData) => [...prevData, ...resultData.results]);
+        setData((data) => [...data, ...resultData.results]);
         setNextPage(resultData.info.next);
       } else {
         setData([]);
@@ -64,13 +72,18 @@ const useRickAndMortyServices = () => {
     }
   };
 
-  function getFilterURL(arr) {
-    const urlStr = [];
-    arr.forEach((filter) => {
-      urlStr.push(`${filter[0]}=${filter[1]}`);
-    });
-    return urlStr.join("&");
-  }
+  const transformData = (char) => {
+    return {
+      image: char.image,
+      gender: char.gender ? char.gender : "Unknown",
+      name: char.name ? char.name : "Unknown",
+      species: char.species ? char.species : "Unknown",
+      status: char.status ? char.status : "Unknown",
+      type: char.type ? char.type : "Unknown",
+      lastLocation: char.location.name ? char.location.name : "Unknown",
+      firstSeen: char.origin.name ? char.origin.name : "Unknown",
+    };
+  };
 
   return {
     initial,
@@ -82,6 +95,7 @@ const useRickAndMortyServices = () => {
     loadNextPage,
     defaultData,
     clearError,
+    transformData,
   };
 };
 

@@ -1,24 +1,10 @@
 import styled from "styled-components";
 
-import { statusOptions, genderOptions } from "../../utils/filterOptions";
+import { selectFilter, searchFilter } from "../../utils/filterOptions";
 import { FilterSelect } from "../FilterSelect/FilterSelect";
 import { FilterSearch } from "../FilterSearch/FilterSearch";
 
-export const FilterPanel = ({
-  filtersSelect,
-  setFiltersSelect,
-  filtersSearch,
-  setFiltersSearch,
-}) => {
-  const selectFilter = {
-    status: statusOptions,
-    gender: genderOptions,
-  };
-  const searchFilter = {
-    species: "",
-    type: "",
-  };
-
+export const FilterPanel = ({ filters, setFilters }) => {
   return (
     <FilterPanelStyle>
       {Object.entries(selectFilter).map(([type, optionsData]) => {
@@ -27,8 +13,8 @@ export const FilterPanel = ({
             key={type}
             param={type}
             filterOptions={optionsData}
-            setFiltersSelect={setFiltersSelect}
-            filtersSelect={filtersSelect}
+            setFilters={setFilters}
+            filters={filters}
           />
         );
       })}
@@ -37,8 +23,8 @@ export const FilterPanel = ({
           <FilterSearch
             key={type}
             param={type}
-            filtersSearch={filtersSearch}
-            setFiltersSearch={setFiltersSearch}
+            filters={filters}
+            setFilters={setFilters}
           />
         );
       })}

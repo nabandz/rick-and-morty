@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { InputSmall } from "../UI/input/Input";
 
-export const FilterSearch = ({ param, filtersSearch, setFiltersSearch }) => {
+export const FilterSearch = ({ param, filters, setFilters }) => {
   const [inputSearch, setInputSearch] = useState("");
 
   const onOptionSeacrh = (param, value) => {
     setInputSearch(value);
-    const newFilters = filtersSearch.filter((filter) => filter[0] !== param);
-    setFiltersSearch([...newFilters, [param, value]]);
+    const newFilters = filters.filter((filter) => filter[0] !== param);
+    setFilters([...newFilters, [param, value]]);
   };
 
   useEffect(() => {
-    setFiltersSearch(filtersSearch);
+    setFilters(filters);
     // eslint-disable-next-line
-  }, [filtersSearch]);
+  }, [filters]);
 
   return (
     <InputSmall

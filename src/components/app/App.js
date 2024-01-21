@@ -24,27 +24,18 @@ function App() {
     filterData,
     defaultData,
     clearError,
+    transformData,
   } = useRickAndMortyServices();
 
   const [filterList, setFilterList] = useState([]);
   const [modalActive, setModalActive] = useState(false);
   const [modalData, setModalData] = useState([]);
 
-  const handleSearch = async (search, filter, filterSearch) => {
+  const handleSearch = (filters) => {
     let newFilters = [];
 
-    if (search) {
-      newFilters.push(["name", search]);
-      setFilterList(newFilters);
-    }
-
-    if (filter.length > 0) {
-      newFilters.push(...filter);
-      setFilterList(newFilters);
-    }
-
-    if (filterSearch.length > 0) {
-      newFilters.push(...filterSearch);
+    if (filters.length > 0) {
+      newFilters.push(...filters);
       setFilterList(newFilters);
     }
 
@@ -73,7 +64,7 @@ function App() {
   }, [filterList]);
 
   const errorMessage = error ? <ErrorMessage /> : null;
-  const spinner = isLoading && data.length === 0 ? <Spinner /> : null;
+  const loadSpinner = isLoading && data.length === 0 ? <Spinner /> : null;
 
   return (
     <Wrapper>
@@ -82,19 +73,10 @@ function App() {
         <Title>Rick and Morty API</Title>
         <ControlsPanel handleSearch={handleSearch} />
         {errorMessage}
-        {spinner}
+        {loadSpinner}
         <CharacterList nextPage={nextPage} loadNextPage={loadNextPage}>
           {data.map((char) => {
-            let charInfo = {
-              image: char.image,
-              gender: char.gender,
-              name: char.name,
-              species: char.species,
-              status: char.status,
-              type: char.type,
-              lastLocation: char.location.name,
-              firstSeen: char.origin.name,
-            };
+            let charInfo = transformData(char);
             return (
               <CharacterCard
                 key={char.id}

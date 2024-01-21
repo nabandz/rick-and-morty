@@ -46,7 +46,7 @@ export const Modal = ({ setModalActive, modalData }) => {
             </div>
             <div>
               <CardInfo>Type:</CardInfo>
-              <CardText>{type ? type : "Unknown"}</CardText>
+              <CardText>{type}</CardText>
             </div>
             <div>
               <CardInfo>Gender:</CardInfo>

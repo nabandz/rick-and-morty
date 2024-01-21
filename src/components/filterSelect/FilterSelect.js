@@ -4,12 +4,7 @@ import styled from "styled-components";
 import arrowIcon from "../../resources/icons/arrow.svg";
 import closeIcon from "../../resources/icons/close.svg";
 
-export const FilterSelect = ({
-  param,
-  filterOptions,
-  setFiltersSelect,
-  filtersSelect,
-}) => {
+export const FilterSelect = ({ param, filterOptions, setFilters, filters }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(param);
   const filterListRef = useRef(null);
@@ -35,22 +30,22 @@ export const FilterSelect = ({
   const onOptionClicked = (param, value) => {
     setSelectedOption(value);
     setIsOpen(false);
-    const newFilters = filtersSelect.filter((filter) => filter[0] !== param);
-    setFiltersSelect([...newFilters, [param, value]]);
+    const newFilters = filters.filter((filter) => filter[0] !== param);
+    setFilters([...newFilters, [param, value]]);
   };
 
   const clearFilter = (e) => {
     e.stopPropagation();
     setSelectedOption(param);
     setIsOpen(false);
-    const newFilters = filtersSelect.filter((filter) => filter[0] !== param);
-    setFiltersSelect([...newFilters]);
+    const newFilters = filters.filter((filter) => filter[0] !== param);
+    setFilters([...newFilters]);
   };
 
   useEffect(() => {
-    setFiltersSelect(filtersSelect);
+    setFilters(filters);
     // eslint-disable-next-line
-  }, [filtersSelect]);
+  }, [filters]);
 
   useClickOutsideFilterList(filterListRef);
 
